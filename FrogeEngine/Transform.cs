@@ -71,8 +71,6 @@ public class Transform : Component
         if(affectRotation) { Rotation = transform.Rotation; }
     }
     
-    
-
     // Private Methods
 
 }
