@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrogeEngine", "FrogeEngine\FrogeEngine.csproj", "{21B9F2A0-B85E-4694-A58E-FDC5D9214E69}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrogeEngine", "FrogeEngine\FrogeEngine.csproj", "{CDFD2AF4-3D91-41F0-BA53-70785CC1EFBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{21B9F2A0-B85E-4694-A58E-FDC5D9214E69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{21B9F2A0-B85E-4694-A58E-FDC5D9214E69}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{21B9F2A0-B85E-4694-A58E-FDC5D9214E69}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{21B9F2A0-B85E-4694-A58E-FDC5D9214E69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDFD2AF4-3D91-41F0-BA53-70785CC1EFBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDFD2AF4-3D91-41F0-BA53-70785CC1EFBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDFD2AF4-3D91-41F0-BA53-70785CC1EFBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDFD2AF4-3D91-41F0-BA53-70785CC1EFBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {36D912E5-BE06-4DDC-9ADB-628A126A3665}
+		SolutionGuid = {36D22828-9EFB-4EB3-BBE2-96B0821BB1EA}
 	EndGlobalSection
 EndGlobal

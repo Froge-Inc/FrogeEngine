@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\xit-m\\source\\repos\\MonoMorphed\\FrogeEngine\\FrogeEngine.csproj": {}
+    "C:\\Users\\xit-m\\source\\repos\\FrogeEngine\\FrogeEngine\\FrogeEngine.csproj": {}
   },
   "projects": {
-    "C:\\Users\\xit-m\\source\\repos\\MonoMorphed\\FrogeEngine\\FrogeEngine.csproj": {
+    "C:\\Users\\xit-m\\source\\repos\\FrogeEngine\\FrogeEngine\\FrogeEngine.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\xit-m\\source\\repos\\MonoMorphed\\FrogeEngine\\FrogeEngine.csproj",
+        "projectUniqueName": "C:\\Users\\xit-m\\source\\repos\\FrogeEngine\\FrogeEngine\\FrogeEngine.csproj",
         "projectName": "FrogeEngine",
-        "projectPath": "C:\\Users\\xit-m\\source\\repos\\MonoMorphed\\FrogeEngine\\FrogeEngine.csproj",
+        "projectPath": "C:\\Users\\xit-m\\source\\repos\\FrogeEngine\\FrogeEngine\\FrogeEngine.csproj",
         "packagesPath": "C:\\Users\\xit-m\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\xit-m\\source\\repos\\MonoMorphed\\FrogeEngine\\obj\\",
+        "outputPath": "C:\\Users\\xit-m\\source\\repos\\FrogeEngine\\FrogeEngine\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -22,7 +22,7 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0-windows"
+          "net6.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -30,8 +30,8 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0-windows7.0": {
-            "targetAlias": "net6.0-windows",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -42,14 +42,14 @@
         }
       },
       "frameworks": {
-        "net6.0-windows7.0": {
-          "targetAlias": "net6.0-windows",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
             "MonoGame.Content.Builder.Task": {
               "target": "Package",
               "version": "[3.8.1.303, )"
             },
-            "MonoGame.Framework.WindowsDX": {
+            "MonoGame.Framework.DesktopGL": {
               "target": "Package",
               "version": "[3.8.1.303, )"
             }
@@ -68,9 +68,6 @@
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
-            },
-            "Microsoft.WindowsDesktop.App.WindowsForms": {
-              "privateAssets": "none"
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
