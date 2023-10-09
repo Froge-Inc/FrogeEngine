@@ -37,10 +37,10 @@ public class Transform : Component
         // Points (relative positions)
         public Vector2[] LocalPoints => new[] { LocalBottomLeft, LocalTopLeft, LocalTopRight, LocalBottomRight };
         
-        public Vector2 LocalBottomLeft => new(-Scaling.X, -Scaling.Y);
-        public Vector2 LocalTopLeft => new(-Scaling.X, Scaling.Y);
-        public Vector2 LocalTopRight => new(Scaling.X, Scaling.Y);
-        public Vector2 LocalBottomRight => new(Scaling.X, -Scaling.Y);
+        public Vector2 LocalBottomLeft => -Scaling / 2;
+        public Vector2 LocalTopLeft => Scaling with {X = -Scaling.X} / 2;
+        public Vector2 LocalTopRight => Scaling / 2;
+        public Vector2 LocalBottomRight => Scaling with {Y = -Scaling.Y} / 2;
         
         // Sides (Relative representations)
         public Line[] LocalSides => new[] { LocalLeft, LocalTop, LocalRight, LocalBottom };
