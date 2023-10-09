@@ -31,8 +31,10 @@
 *.ide-shm
 *.ide-wal
 *.idea
+*.xml
 ipch/
 obj/
+.idea/
 [Bb]in
 [Dd]ebug*/
 [Rr]elease*/
