@@ -41,8 +41,9 @@ public class Camera
     {
         foreach (GameObject g in _renderedObjects)
         {
-            //Tuple<Rectangle, float> r = GameObjectToRect(g);
+            // foreach gameobject
             //Renderer re = g.GetComponent<Renderer>();
+            //Tuple<Rectangle, float> r = GameObjectToRect(g);
             //_spriteBatch.Draw(re.Sprite, r.Rectangle, r.float, re.color);
         }
     }
@@ -78,19 +79,18 @@ public class Camera
     }
     public bool IsRendered(Transform transform)
     {
-        foreach (Vector2 p in transform.Points) // If any corner points of the object fall inbounds, it should be rendered
+        // Two rectangles, 1 and 2, do not intersect if either A or B is true;
+        // A: All points of rectangle 1 are below the bottom or above the top of rectangle 2
+        // B: All points of rectangle 1 are to the left of the left or to the right of the right side of rectangle 2
+        Vector2[] points = transform.Points;
+        bool A = false;
+        bool B = false;
+        foreach (Vector2 p in points)
         {
-            if(InBounds(p)) { return true; }
+            if (InBoundsY(p)) { A = true; }
+            if (InBoundsX(p)) { B = true; }
         }
-
-        foreach (Line l in transform.Sides) // Else if any bounds of the object intersect with the camera bounds, it should be rendered
-        {
-            foreach (Line s in Lines)
-            {
-                if(l.Intersects(s)) { return true; }
-            }
-        }
-        return false; // Else it shouldn't
+        return A && B;
     }
     
 
