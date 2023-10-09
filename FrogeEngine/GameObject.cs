@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FrogeEngine.Components;
 using Microsoft.Xna.Framework;
 using Vector2 = System.Numerics.Vector2;
 
@@ -37,4 +38,10 @@ public class GameObject
         newComponent.Init(this);
         return newComponent;
     }
+    
+    
+    
+    public virtual void OnCollisionEnter(GameObject coll) { }
+    public virtual void OnCollision(GameObject coll) { }
+    public virtual void OnCollisionExit(GameObject coll) { }
 }

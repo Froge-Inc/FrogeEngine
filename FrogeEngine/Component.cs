@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace FrogeEngine;
 
-public class Component
+public abstract class Component
 {
     public GameObject GameObject { get; private set; }
     public Transform Transform => GameObject.Transform;
