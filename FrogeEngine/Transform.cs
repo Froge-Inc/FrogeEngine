@@ -1,14 +1,34 @@
-﻿using System.Numerics;
+﻿using System.Collections.Generic;
+using System.Numerics;
 using FrogeEngine.Mathematics;
 
 namespace FrogeEngine;
 
 public class Transform : Component
 {
-    public Transform(GameObject parent) : base(parent) { }
-
+    public Transform Parent { get; private set; }
+    private List<Transform> Children { get; set; }
+    
     // Core Properties
-    public Vector2 Position { get; set; } = Vector2.Zero;
+    private Vector2 _position;
+    public Vector2 Position
+    {
+        get => changed ? UpdatePosition() : _position;
+        set => UpdateLocalPosition(value);
+    }
+
+    private Vector2 _localPosition;
+    public Vector2 LocalPosition
+    {
+        get => _localPosition;
+        set
+        {
+            _localPosition = value;
+            changed = true;
+        }
+    }
+    private bool changed = true;
+    
     public Vector2 Scaling { get; set; } = Vector2.One;
     public float Rotation { get; set; } = 0;
     
@@ -72,5 +92,20 @@ public class Transform : Component
     }
     
     // Private Methods
+
+    private Vector2 UpdatePosition()
+    {
+        changed = false;
+        Vector2 parentVector = Parent?.Position ?? Vector2.Zero;
+        _position = parentVector + _localPosition;
+        return _position;
+    }
+
+    private void UpdateLocalPosition(Vector2 newPosition)
+    {
+        var changeLocal = newPosition - _position;
+        _localPosition += changeLocal;
+        _position = newPosition;
+    }
 
 }
