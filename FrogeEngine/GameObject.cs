@@ -21,7 +21,7 @@ public class GameObject
         _name = name;
         _components = new List<Component>()
         {
-            new Transform(null)
+            new Transform()
         };
     }
     
@@ -34,20 +34,7 @@ public class GameObject
     {
         var newComponent = new T();
         _components.Add(newComponent);
+        newComponent.Init(this);
         return newComponent;
-    }
-    
-    
-    
-    //Maybe move to Renderer component?? Converts transform to coordinates on screen
-    public Tuple<Rectangle, float> GameObjectToRect(Vector2 topLeft, float ppu)
-    {
-        int posX = (int)((-topLeft.X + Transform.Position.X) * ppu);
-        int posY = (int)((topLeft.Y - Transform.Position.Y) * ppu);
-        int sclX = (int)(Transform.Scaling.X * ppu);
-        int sclY = (int)(Transform.Scaling.Y * ppu);
-        Rectangle rect = new(posX, posY, sclX, sclY);
-        float rot = Transform.Rotation;
-        return new Tuple<Rectangle, float>(rect, rot);
     }
 }
