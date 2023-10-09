@@ -1,14 +1,19 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections;
+using System.Diagnostics;
+using Microsoft.Xna.Framework;
 
 namespace FrogeEngine;
 
 public class Component
 {
-    public GameObject Parent { get; private set; }
+    public GameObject GameObject { get; private set; }
+    public Transform Transform => GameObject.Transform;
 
-    public Component(GameObject caller)
+    public Component() { }
+    
+    public void Init (GameObject g)
     {
-        Parent = caller;
+        GameObject ??= g;
     }
     
     public virtual void Update(GameTime gameTime) { }
