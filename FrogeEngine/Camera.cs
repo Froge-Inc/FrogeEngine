@@ -28,18 +28,7 @@ public class Camera
     public void RenderObject(GameObject go) { _renderedObjects.Add(go); }
     public void UnRenderObject(GameObject go) { _renderedObjects.Remove(go); }
     
-    public Tuple<Rectangle, float> GameObjectToRect(GameObject go) { return GameObjectToRect(go.Transform); }
-    public Tuple<Rectangle, float> GameObjectToRect(Transform transform)
-    {
-        Vector2 topLeft = Origin + FOV with { X = 0 };
-        int posX = (int)((-topLeft.X + transform.Position.X) * PixelsPerUnit);
-        int posY = (int)((topLeft.Y - transform.Position.Y) * PixelsPerUnit);
-        int sclX = (int)(transform.Scaling.X * PixelsPerUnit);
-        int sclY = (int)(transform.Scaling.Y * PixelsPerUnit);
-        Rectangle rect = new(posX, posY, sclX, sclY);
-        float rot = transform.Rotation;
-        return new Tuple<Rectangle, float>(rect, rot);
-    }
+    
 
     public virtual void Update(GameTime gameTime) { }
 
@@ -52,7 +41,7 @@ public class Camera
     {
         foreach (GameObject g in _renderedObjects)
         {
-            Tuple<Rectangle, float> r = GameObjectToRect(g);
+            //Tuple<Rectangle, float> r = GameObjectToRect(g);
             //Renderer re = g.GetComponent<Renderer>();
             //_spriteBatch.Draw(re.Sprite, r.Rectangle, r.float, re.color);
         }
