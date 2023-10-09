@@ -12,6 +12,7 @@ public class Camera
     public Vector2 PixelSize { get; private set; }
     
     public Vector2 Origin { get; private set; }
+    public Vector2 TopLeft => Origin + FOV with { X = 0 };
     public Vector2 FOV { get; private set; }
     
     private List<GameObject> _renderedObjects;
