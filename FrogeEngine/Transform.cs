@@ -6,41 +6,82 @@ namespace FrogeEngine;
 
 public class Transform : Component
 {
+    public bool Translated { get; set; } = false;
     public Transform Parent { get; private set; }
     private List<Transform> Children { get; set; }
     
     // Core Properties
-    private Vector2 _position;
-    public Vector2 Position
-    {
-        get => changed ? UpdatePosition() : _position;
-        set => UpdateLocalPosition(value);
-    }
-
-    private Vector2 _localPosition;
-    public Vector2 LocalPosition
-    {
-        get => _localPosition;
-        set
+    // POSITION ---------------------------------------------
+        private Vector2 _position;
+        public Vector2 Position
         {
-            _localPosition = value;
-            changed = true;
+            get => _changedPos ? UpdatePosition() : _position;
+            set => UpdateLocalPosition(value);
         }
-    }
-    private bool changed = true;
+        private Vector2 _localPosition;
+        public Vector2 LocalPosition
+        {
+            get => _localPosition;
+            set
+            {
+                _localPosition = value;
+                _changedPos = true;
+                Translated = true;
+            }
+        }
+        private bool _changedPos = true;
     
-    public Vector2 Scaling { get; set; } = Vector2.One;
-    public float Rotation { get; set; } = 0;
+    // ROTATION ---------------------------------------------
+        private Vector2 _scaling;
+        public Vector2 Scaling
+        {
+            get => _changedPos ? UpdateScaling() : _position;
+            set => UpdateLocalScaling(value);
+        }
+        private Vector2 _localScaling;
+        public Vector2 LocalScaling
+        {
+            get => _localScaling;
+            set
+            {
+                _localScaling = value;
+                _changedRot = true;
+                Translated = true;
+            }
+        }
+        private bool _changedScl = true;
+        
+
+    
+    // ROTATION ---------------------------------------------
+        private float _rotation = 0;
+        public float Rotation
+        {
+            get => _changedRot ? UpdateRotation() : _rotation; 
+            set => UpdateLocalRotation(value);
+        }
+        private float _localRotation = 0;
+        public float LocalRotation
+        {
+            get => _localRotation;
+            set
+            {
+                _localRotation = value;
+                _changedRot = true;
+                Translated = true;
+            }
+        }
+        private bool _changedRot = true;
     
     
     // Local Properties
         // Points (relative positions)
         public Vector2[] LocalPoints => new[] { LocalBottomLeft, LocalTopLeft, LocalTopRight, LocalBottomRight };
-        
-        public Vector2 LocalBottomLeft => -Scaling / 2;
-        public Vector2 LocalTopLeft => Scaling with {X = -Scaling.X} / 2;
-        public Vector2 LocalTopRight => Scaling / 2;
-        public Vector2 LocalBottomRight => Scaling with {Y = -Scaling.Y} / 2;
+
+        public Vector2 LocalBottomLeft => Utils.RotatedVector(-Scaling / 2, LocalRotation);
+        public Vector2 LocalTopLeft => Utils.RotatedVector(Scaling with {X = -Scaling.X} / 2, LocalRotation);
+        public Vector2 LocalTopRight => Utils.RotatedVector(Scaling / 2, LocalRotation);
+        public Vector2 LocalBottomRight => Utils.RotatedVector(Scaling with {Y = -Scaling.Y} / 2, LocalRotation);
         
         // Sides (Relative representations)
         public Line[] LocalSides => new[] { LocalLeft, LocalTop, LocalRight, LocalBottom };
@@ -95,17 +136,47 @@ public class Transform : Component
 
     private Vector2 UpdatePosition()
     {
-        changed = false;
+        _changedPos = false;
         Vector2 parentVector = Parent?.Position ?? Vector2.Zero;
         _position = parentVector + _localPosition;
         return _position;
     }
-
     private void UpdateLocalPosition(Vector2 newPosition)
     {
         var changeLocal = newPosition - _position;
         _localPosition += changeLocal;
         _position = newPosition;
+        Translated = true;
+    }
+    
+    private Vector2 UpdateScaling()
+    {
+        _changedPos = false;
+        Vector2 parentVector = Parent?.Position ?? Vector2.Zero;
+        _position = parentVector + _localPosition;
+        return _position;
+    }
+    private void UpdateLocalScaling(Vector2 newPosition)
+    {
+        var changeLocal = newPosition - _position;
+        _localPosition += changeLocal;
+        _position = newPosition;
+        Translated = true;
+    }
+    
+    private float UpdateRotation()
+    {
+        _changedRot = false;
+        float parentRotation = Parent?.Rotation ?? 0;
+        _rotation = parentRotation + _localRotation;
+        return _rotation;
+    }
+    private void UpdateLocalRotation(float newRotation)
+    {
+        var changeLocal = newRotation - _rotation;
+        _localRotation += changeLocal;
+        _rotation = newRotation;
+        Translated = true;
     }
 
 }
