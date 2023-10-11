@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FrogeEngine.Components;
 using FrogeEngine.Mathematics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,15 +8,16 @@ using Vector2 = System.Numerics.Vector2;
 
 namespace FrogeEngine;
 
-public class Camera
+public class Camera : Component
 {
+    public static Camera Main;
     public Vector2 PixelSize { get; private set; }
     
     public Vector2 Origin { get; private set; }
     public Vector2 TopLeft => Origin + FOV with { X = 0 };
     public Vector2 FOV { get; private set; }
     
-    private List<GameObject> _renderedObjects;
+    private static List<SpriteRenderer> _subscribedSpriteRenderers;
     //private List<UIObject> _uiObjects;
 
     private SpriteBatch _spriteBatch;
@@ -23,27 +25,24 @@ public class Camera
     public Camera(SpriteBatch spriteBatch)
     {
         _spriteBatch = spriteBatch;
-        _renderedObjects = new();
+        _subscribedSpriteRenderers = new();
     }
 
-    public void RenderObject(GameObject go) { _renderedObjects.Add(go); }
-    public void UnRenderObject(GameObject go) { _renderedObjects.Remove(go); }
+    public static void SubscribeSpriteRenderer(SpriteRenderer spriteRenderer) { _subscribedSpriteRenderers.Add(spriteRenderer); }
+    public static void UnSubscribeSpriteRenderer(SpriteRenderer spriteRenderer) { _subscribedSpriteRenderers.Remove(spriteRenderer); }
     
-    
-
-    public virtual void Update(GameTime gameTime) { }
-
     public virtual void Draw(GameTime gameTime)
     {
         DrawGame(gameTime);
         DrawUI(gameTime);
     }
+    
     private void DrawGame(GameTime gameTime)
     {
-        foreach (GameObject g in _renderedObjects)
+        foreach (var renderer in _subscribedSpriteRenderers)
         {
-            // foreach gameobject
-            //Renderer re = g.GetComponent<Renderer>();
+            
+            
             //Tuple<Rectangle, float> r = GameObjectToRect(g);
             //_spriteBatch.Draw(re.Sprite, r.Rectangle, r.float, re.color);
         }

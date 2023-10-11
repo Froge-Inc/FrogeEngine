@@ -4,7 +4,7 @@ using Vector2 = System.Numerics.Vector2;
 
 namespace FrogeEngine.Components;
 
-public class Renderer : Component
+public class SpriteRenderer : Component
 {
     public Texture2D Sprite { get; set; }
     public Color ColorModulate { get; set; } = Color.White;

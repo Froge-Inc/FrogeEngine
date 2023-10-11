@@ -16,5 +16,13 @@ public abstract class Component
         GameObject ??= g;
     }
     
+    public virtual void Start(){ }
+    
     public virtual void Update(GameTime gameTime) { }
+    public virtual void OnDestroy() { }
+
+    public void Destroy()
+    {
+        GameObject.DestroyComponent(this);
+    }
 }
