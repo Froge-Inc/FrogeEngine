@@ -17,21 +17,22 @@ public class Camera : Component
     public Vector2 TopLeft => Origin + FOV with { X = 0 };
     public Vector2 FOV { get; private set; }
     
-    private static List<SpriteRenderer> _subscribedSpriteRenderers;
+    private static List<SpriteRenderer> _subscribedSpriteRenderers = new();
     //private List<UIObject> _uiObjects;
 
-    private SpriteBatch _spriteBatch;
-
-    public Camera(SpriteBatch spriteBatch)
-    {
-        _spriteBatch = spriteBatch;
-        _subscribedSpriteRenderers = new();
-    }
+    private SpriteBatch _gameSpriteBatch;
+    private SpriteBatch _uiSpriteBatch;
 
     public static void SubscribeSpriteRenderer(SpriteRenderer spriteRenderer) { _subscribedSpriteRenderers.Add(spriteRenderer); }
     public static void UnSubscribeSpriteRenderer(SpriteRenderer spriteRenderer) { _subscribedSpriteRenderers.Remove(spriteRenderer); }
-    
-    public virtual void Draw(GameTime gameTime)
+
+    public override void Initialize()
+    {
+        _gameSpriteBatch = new SpriteBatch(FrogeGame.Game.GraphicsDevice);
+        _uiSpriteBatch = new SpriteBatch(FrogeGame.Game.GraphicsDevice);
+    }
+
+    public override void Draw(GameTime gameTime)
     {
         DrawGame(gameTime);
         DrawUI(gameTime);
@@ -39,13 +40,13 @@ public class Camera : Component
     
     private void DrawGame(GameTime gameTime)
     {
+        _gameSpriteBatch.Begin();
+        
         foreach (var renderer in _subscribedSpriteRenderers)
         {
-            
-            
-            //Tuple<Rectangle, float> r = GameObjectToRect(g);
-            //_spriteBatch.Draw(re.Sprite, r.Rectangle, r.float, re.color);
+            renderer.Draw(_gameSpriteBatch, this);
         }
+        _gameSpriteBatch.End();
     }
     private void DrawUI(GameTime gameTime)
     {
@@ -56,8 +57,6 @@ public class Camera : Component
          * }
          */
     }
-    
-    
     
     public float PixelsPerUnit => PixelSize.X / FOV.X; // Returns a value of pixels per unit
 

@@ -9,8 +9,12 @@ public class SpriteRenderer : Component
     public Texture2D Sprite { get; set; }
     public Color ColorModulate { get; set; } = Color.White;
     public int Layer { get; set; } = 0;
-    
-    
+
+    public override void Start()
+    {
+        Camera.SubscribeSpriteRenderer(this);
+    }
+
     public void Draw(SpriteBatch spriteBatch, Camera camera)
     {
         if (!camera.IsRendered(Transform)) return;
@@ -32,5 +36,10 @@ public class SpriteRenderer : Component
         Vector2 pos = (pTopLeft - topLeft) * ppu;
         Vector2 scl = Transform.Scaling * ppu;
         return (pos, scl);
+    }
+
+    public override void OnDestroy()
+    {
+        Camera.UnSubscribeSpriteRenderer(this);
     }
 }

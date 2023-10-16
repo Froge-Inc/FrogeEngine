@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
-using System.Numerics;
 using FrogeEngine.Mathematics;
+using Microsoft.Xna.Framework;
+using Vector2 = System.Numerics.Vector2;
 
 namespace FrogeEngine;
 
 public class Transform : Component
 {
     public bool Translated { get; set; } = false;
-    public Transform Parent { get; private set; }
+    public Transform Parent { get =>_parent; set => SetParent(value); }
+    private Transform _parent;
     private List<Transform> Children { get; set; }
     
     // Core Properties
@@ -179,4 +181,27 @@ public class Transform : Component
         Translated = true;
     }
 
+    public void SetParent(Transform parent)
+    {
+        _parent = parent;
+        if (parent != null) return;
+        if (FrogeGame.Game.Scene == null) return;
+        FrogeGame.Game.Scene.UpdateParent(this);
+    }
+    
+    public void UpdateChildren()
+    {
+        foreach (var child in Children)
+        {
+            if (child.Parent == this) continue;
+            Children.Remove((child));
+        }
+    }
+    
+    public Transform[] GetChildren()
+    {
+        return Children.ToArray();
+    }
+
+    
 }

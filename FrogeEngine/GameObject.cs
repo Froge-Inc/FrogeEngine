@@ -15,8 +15,9 @@ public class GameObject
 
     private string _name;
     private List<Component> _components;
-    
 
+    
+    
     public GameObject(string name)
     {
         _name = name;
@@ -24,6 +25,26 @@ public class GameObject
         {
             new Transform()
         };
+    }
+    
+    public GameObject(string name, Transform parent)
+    {
+        _name = name;
+        _components = new List<Component>()
+        {
+            new Transform()
+        };
+
+        Transform.Parent = parent;
+    }
+    
+    public static GameObject CreateGameObject(string name, Transform parent = null)
+    {
+        var gameObject = new GameObject(name, parent);
+        
+        FrogeGame.Game.Scene.AddGameObject(gameObject, parent);
+
+        return gameObject;
     }
     
     public T GetComponent<T>() where T: Component
@@ -54,12 +75,41 @@ public class GameObject
     public void DestroyComponent(Component component)
     {
         if (component == null) return;
+
+        if (component as Transform != null)
+        {
+            throw new Exception("Tried to destroy a transform, this is not allowed!");
+        }
         
         component.OnDestroy();
         _components.Remove(component);
     }
+
+    public void Start()
+    {
+        foreach (var component in _components.ToArray())
+        {
+            component.Start();
+        }
+    }
+
+    public void Update(GameTime gameTime)
+    {
+        foreach (var component in _components.ToArray())
+        {
+            component.Update(gameTime);
+        }
+    }
     
-    public virtual void OnCollisionEnter(GameObject coll) { }
-    public virtual void OnCollision(GameObject coll) { }
-    public virtual void OnCollisionExit(GameObject coll) { }
+    public void Draw(GameTime gameTime)
+    {
+        foreach (var component in _components.ToArray())
+        {
+            component.Draw(gameTime);
+        }
+    }
+    
+    public void OnCollisionEnter(GameObject coll) { }
+    public void OnCollision(GameObject coll) { }
+    public void OnCollisionExit(GameObject coll) { }
 }

@@ -14,11 +14,21 @@ public abstract class Component
     public void Init (GameObject g)
     {
         GameObject ??= g;
+        Initialize();
+    }
+
+    public virtual void Initialize()
+    {
+        
     }
     
     public virtual void Start(){ }
     
     public virtual void Update(GameTime gameTime) { }
+
+    public virtual void Draw(GameTime gameTime) { }
+
+
     public virtual void OnDestroy() { }
 
     public void Destroy()
