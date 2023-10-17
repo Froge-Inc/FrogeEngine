@@ -7,6 +7,7 @@ namespace FrogeEngine.Components;
 public class SpriteRenderer : Component
 {
     public Texture2D Sprite { get; set; }
+    public Vector2 SpriteSize => new(Sprite.Width, Sprite.Height);
     public Color ColorModulate { get; set; } = Color.White;
     public int Layer { get; set; } = 0;
 
@@ -24,7 +25,7 @@ public class SpriteRenderer : Component
             null,
             ColorModulate,
             Transform.Rotation,
-            rect.Item2 / 2,
+            SpriteSize / 2,
             rect.Item2,
             SpriteEffects.None,
             Layer);
@@ -32,9 +33,10 @@ public class SpriteRenderer : Component
     
     public (Vector2, Vector2) GameObjectToRect(Vector2 topLeft, float ppu)
     {
-        Vector2 pTopLeft = Transform.Position - Transform.LocalTopLeft;
-        Vector2 pos = (pTopLeft - topLeft) * ppu;
-        Vector2 scl = Transform.Scaling * ppu;
+        //Vector2 pTopLeft = Transform.Position + Transform.LocalTopLeft;
+        Vector2 pos = (Transform.Position  - topLeft) * ppu;
+        pos = pos with { Y = -pos.Y };
+        Vector2 scl = Transform.Scaling * ppu / SpriteSize;
         return (pos, scl);
     }
 
@@ -42,4 +44,5 @@ public class SpriteRenderer : Component
     {
         Camera.UnSubscribeSpriteRenderer(this);
     }
+    
 }

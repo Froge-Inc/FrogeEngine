@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FrogeEngine.Mathematics;
 using Microsoft.Xna.Framework;
 using Vector2 = System.Numerics.Vector2;
@@ -20,7 +21,7 @@ public class Transform : Component
             get => _changedPos ? UpdatePosition() : _position;
             set => UpdateLocalPosition(value);
         }
-        private Vector2 _localPosition;
+        private Vector2 _localPosition= new(0, 0);
         public Vector2 LocalPosition
         {
             get => _localPosition;
@@ -37,10 +38,10 @@ public class Transform : Component
         private Vector2 _scaling;
         public Vector2 Scaling
         {
-            get => _changedPos ? UpdateScaling() : _position;
+            get => _changedScl ? UpdateScaling() : _scaling;
             set => UpdateLocalScaling(value);
         }
-        private Vector2 _localScaling;
+        private Vector2 _localScaling = Vector2.One;
         public Vector2 LocalScaling
         {
             get => _localScaling;
@@ -81,7 +82,7 @@ public class Transform : Component
         public Vector2[] LocalPoints => new[] { LocalBottomLeft, LocalTopLeft, LocalTopRight, LocalBottomRight };
 
         public Vector2 LocalBottomLeft => Utils.RotatedVector(-Scaling / 2, LocalRotation);
-        public Vector2 LocalTopLeft => Utils.RotatedVector(Scaling with {X = -Scaling.X} / 2, LocalRotation);
+        public Vector2 LocalTopLeft => Utils.RotatedVector(new Vector2(-Scaling.X, Scaling.Y) / 2, LocalRotation);
         public Vector2 LocalTopRight => Utils.RotatedVector(Scaling / 2, LocalRotation);
         public Vector2 LocalBottomRight => Utils.RotatedVector(Scaling with {Y = -Scaling.Y} / 2, LocalRotation);
         
@@ -113,6 +114,8 @@ public class Transform : Component
 
 
     // Public Methods
+    public override void Update(GameTime gameTime) { }
+    
     public void Translate(Vector2 translation) { Position += translation; }
     public void Reposition() { Position = Vector2.Zero; }
 
@@ -153,16 +156,16 @@ public class Transform : Component
     
     private Vector2 UpdateScaling()
     {
-        _changedPos = false;
-        Vector2 parentVector = Parent?.Position ?? Vector2.Zero;
-        _position = parentVector + _localPosition;
-        return _position;
+        _changedScl = false;
+        Vector2 parentVector = Parent?.Scaling ?? Vector2.One;
+        _scaling = parentVector * _localScaling;
+        return _scaling;
     }
-    private void UpdateLocalScaling(Vector2 newPosition)
+    private void UpdateLocalScaling(Vector2 newScaling)
     {
-        var changeLocal = newPosition - _position;
-        _localPosition += changeLocal;
-        _position = newPosition;
+        var changeLocal = newScaling / _scaling;
+        _localScaling *= changeLocal;
+        _scaling = newScaling;
         Translated = true;
     }
     

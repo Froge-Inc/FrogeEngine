@@ -15,7 +15,7 @@ public class FrogeGame : Game
     
     private List<GameScene> _gameScenes;
 
-    private GraphicsDeviceManager _graphics;
+    protected GraphicsDeviceManager _graphics;
     private GameScene _scene;
 
     protected FrogeGame()
@@ -63,6 +63,7 @@ public class FrogeGame : Game
 
     protected sealed override void Draw(GameTime gameTime)
     {
+        GraphicsDevice.Clear(Color.Black);
         _scene?.Draw(gameTime);
     }
 }

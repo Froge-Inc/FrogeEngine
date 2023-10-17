@@ -41,7 +41,6 @@ public class Camera : Component
     private void DrawGame(GameTime gameTime)
     {
         _gameSpriteBatch.Begin();
-        
         foreach (var renderer in _subscribedSpriteRenderers)
         {
             renderer.Draw(_gameSpriteBatch, this);
@@ -56,6 +55,34 @@ public class Camera : Component
          *      _spriteBatch.Draw(u.Sprite, calculatedRectangle, u.Rotation, u.Color)
          * }
          */
+    }
+
+    public void UpdatePixelSize(GraphicsDeviceManager g)
+    {
+        PixelSize = new(g.PreferredBackBufferWidth, g.PreferredBackBufferHeight);
+        UpdateFOV(Vector2.Zero);
+    }
+
+    public void UpdateFOV(Vector2 newFOV)
+    {
+        if (newFOV == Vector2.Zero)
+        {
+            FOV = PixelSize / 100;
+            return;
+        }
+        if (newFOV.X == 0)
+        {
+            FOV = newFOV with { X = PixelSize.Y / newFOV.Y * PixelSize.X };
+            return;
+        }
+        if (newFOV.Y == 0)
+        {
+            FOV = newFOV with { Y = PixelSize.X / newFOV.X * PixelSize.Y };
+            return;
+        }
+
+        FOV = newFOV with { Y = PixelSize.X / newFOV.X * PixelSize.Y };
+        
     }
     
     public float PixelsPerUnit => PixelSize.X / FOV.X; // Returns a value of pixels per unit
