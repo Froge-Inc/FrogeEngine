@@ -1,5 +1,8 @@
 namespace FrogeEngine.Components;
 
+/// <summary>
+/// An incomplete class. Will be used to handle collisions between sphere colliders and other colliders.
+/// </summary>
 public class SphereCollider : Collider
 {
     protected override void CheckCollisionPossibility(GameObject g)

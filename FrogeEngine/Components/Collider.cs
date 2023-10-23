@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework;
 
 namespace FrogeEngine.Components;
 
+/// <summary>
+/// An incomplete class. Will be used as base for colliders, components used to check collisions between gameObjects..
+/// </summary>
 public abstract class Collider : Component
 {
     //TODO:Revamp collision handling (static list with tuples, avoid duplicate checks, events?

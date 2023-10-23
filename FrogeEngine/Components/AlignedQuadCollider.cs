@@ -1,8 +1,11 @@
 using System;
-using System.Numerics;
+using Microsoft.Xna.Framework;
 
 namespace FrogeEngine.Components;
 
+/// <summary>
+/// An incomplete class. Will be used to handle collisions between non-rotated quad colliders and other colliders.
+/// </summary>
 public class AlignedQuadCollider : Collider
 {
     protected override void CheckCollisionPossibility(GameObject g)
