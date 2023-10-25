@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace FrogeEngine.Components;
+namespace FrogeEngine.Components.Renderer;
 
 /// <summary>
 /// The Renderer component is the foundation of rendering the game; translating the arbitrary positions of the Transform

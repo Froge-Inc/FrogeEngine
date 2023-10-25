@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace FrogeEngine.Components;
+namespace FrogeEngine.Components.Renderer;
 
 /// <summary>
 /// The SpriteRenderer component is an extended Renderer component that is used to draw sprites (images) to the screen.

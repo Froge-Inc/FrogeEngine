@@ -1,4 +1,4 @@
-namespace FrogeEngine.Components;
+namespace FrogeEngine.Components.Collider;
 
 /// <summary>
 /// An incomplete class. Will be used to handle collisions between sphere colliders and other colliders.

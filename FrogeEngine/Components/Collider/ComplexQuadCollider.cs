@@ -1,4 +1,4 @@
-namespace FrogeEngine.Components;
+namespace FrogeEngine.Components.Collider;
 
 /// <summary>
 /// An incomplete class. Will be used to handle collisions between rotated quad colliders and other colliders.

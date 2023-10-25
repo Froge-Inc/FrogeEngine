@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using FrogeEngine.Components;
+using FrogeEngine.Components.Renderer;
 using FrogeEngine.Mathematics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

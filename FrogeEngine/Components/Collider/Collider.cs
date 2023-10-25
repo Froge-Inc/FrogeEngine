@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 
-namespace FrogeEngine.Components;
+namespace FrogeEngine.Components.Collider;
 
 /// <summary>
 /// An incomplete class. Will be used as base for colliders, components used to check collisions between gameObjects..

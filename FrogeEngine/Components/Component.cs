@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace FrogeEngine;
+namespace FrogeEngine.Components;
 
 /// <summary>
 /// The Component class is used to give gameObjects functionality. All components are provided with a few base methods

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FrogeEngine.Components;
 using Microsoft.Xna.Framework;
 
 namespace FrogeEngine;

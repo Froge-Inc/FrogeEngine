@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using FrogeEngine.Mathematics;
 using Microsoft.Xna.Framework;
 
-namespace FrogeEngine;
+namespace FrogeEngine.Components;
 
 /// <summary>
 /// The Transform component is a crucial component all gameObjects have. They define the position, rotation, scaling
@@ -211,6 +211,7 @@ public class Transform : Component
     {
         base.Update(gameTime);
         TranslateToTarget();
+        Rotate(0.1f);
     }
     
     /// <summary>
@@ -239,7 +240,7 @@ public class Transform : Component
     /// Rotates the gameObject with the given float (globally).
     /// </summary>
     /// <param name="rotation">The rotation to be carried out on the gameObject in radians.</param>
-    public void Rotate(float rotation) { Rotation += rotation; }
+    public void Rotate(float rotation) { LocalRotation += rotation; }
     
     /// <summary>
     /// Resets the global Rotation to 0.
@@ -277,9 +278,10 @@ public class Transform : Component
     private Vector2 UpdatePosition()
     {
         Vector2 parentVector = Parent?.Position ?? Vector2.Zero;
-        Vector2 rotatedLocalPos = Utils.RotatedVector(_localPosition, -Rotation);
+        float parentRotation = Parent?.Rotation ?? 0;
+        Vector2 parentScaling = Parent?.Scaling ?? Vector2.One;
+        Vector2 rotatedLocalPos = Utils.RotatedVector(_localPosition, parentRotation) * parentScaling;
         _position = parentVector + rotatedLocalPos;
-        _translated = false;
         return _position;
     }
     
@@ -303,7 +305,6 @@ public class Transform : Component
     {
         Vector2 parentVector = Parent?.Scaling ?? Vector2.One;
         _scaling = parentVector * _localScaling;
-        _translated = false;
         return _scaling;
     }
     
@@ -327,7 +328,6 @@ public class Transform : Component
     {
         float parentRotation = Parent?.Rotation ?? 0;
         _rotation = parentRotation + _localRotation;
-        _translated = false;
         return _rotation;
     }
     

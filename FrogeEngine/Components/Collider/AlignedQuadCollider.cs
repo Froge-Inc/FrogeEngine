@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 
-namespace FrogeEngine.Components;
+namespace FrogeEngine.Components.Collider;
 
 /// <summary>
 /// An incomplete class. Will be used to handle collisions between non-rotated quad colliders and other colliders.
